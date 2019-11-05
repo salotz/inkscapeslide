@@ -45,7 +45,6 @@ def cli(output, svg):
     gc.collect()
 
     # then make a new svg doc for each layer
-    import pdb; pdb.set_trace()
     page_etrees = separate_layers(svg_etree)
     del svg_etree
     gc.collect()
