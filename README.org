@@ -1,1 +1,42 @@
+* Inkscape Pages
 
+Convert an inkscape document to a PDF document where each layer is a
+new page.
+
+Useful for making slideshows only in inkscape!
+
+Just install:
+
+#+begin_src bash
+  pip install inkscape_pages
+#+end_src
+
+or for the freshest cut you can always do it directly:
+
+#+begin_src bash
+  pip install git+https://github.com/salotz/inkscape_pages.git
+#+end_src
+
+It only does one thing which will take your svg and turn it into a
+multipage pdf:
+
+#+begin_src bash
+inkscape_pages slideshow.svg
+#+end_src
+
+See the help for other options:
+
+#+begin_src bash
+inkscape_pages --help
+#+end_src
+
+
+** Inkscape document
+
+The only thing you have to do to make this work in inkscape is to put
+each page in a new layer. When you save the document make sure all
+layers are visible. If a slide is not visible it will result in a
+blank page.
+
+The order of the stack of layers will be the order of the output top
+first.
