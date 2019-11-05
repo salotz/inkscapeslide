@@ -4,6 +4,7 @@ wheel
 twine
 
 # utilities
+cookiecutter
 bumpversion
 
 # task running
