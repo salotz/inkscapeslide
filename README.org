@@ -5,13 +5,7 @@ new page.
 
 Useful for making slideshows only in inkscape!
 
-Just install:
-
-#+begin_src bash
-  pip install inkscape_pages
-#+end_src
-
-or for the freshest cut you can always do it directly:
+Just install from git:
 
 #+begin_src bash
   pip install git+https://github.com/salotz/inkscape_pages.git
