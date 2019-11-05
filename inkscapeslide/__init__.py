@@ -1,22 +1,23 @@
-#!/usr/bin/python
-# -=- encoding: utf-8 -=-
-
 """
-Author: Alexandre Bourget
+Authors: Alexandre Bourget
 Copyright (c) 2008: Alexandre Bourget
+LICENSE: GPLv3
+
+Authors: Samuel D. Lotz
+Copyright (c) 2019: Samuel D. Lotz
 LICENSE: GPLv3
 
 inkscapeslide is a simple tool to generate slides from inkscape files.
 
-See --help for more.
 """
 
-import lxml.etree
+
 import sys
 import os
 import subprocess
 import re
-from optparse import OptionParser
+
+import lxml.etree
 
 
 def main():

@@ -1,0 +1,14 @@
+# core
+pip
+wheel
+twine
+
+# utilities
+bumpversion
+
+# task running
+invoke
+
+# interactive and debugging
+ipython
+pdbpp
