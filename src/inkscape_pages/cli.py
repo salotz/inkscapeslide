@@ -5,7 +5,7 @@ import subprocess
 
 import click
 
-import lxml.etree
+import xml.etree.ElementTree as xml_parser
 
 from PyPDF2 import PdfFileReader, PdfFileWriter
 
@@ -40,7 +40,7 @@ def cli(output, svg):
 
     # rad and parse
     svg_str = svg.read()
-    svg_etree = lxml.etree.fromstring(svg_str)
+    svg_etree = xml_parser.fromstring(svg_str)
     del svg_str
     gc.collect()
 
@@ -50,7 +50,7 @@ def cli(output, svg):
     gc.collect()
 
     # for each slide serialize to xml
-    page_svg_strs = [lxml.etree.tostring(page) for page in page_etrees]
+    page_svg_strs = [xml_parser.tostring(page) for page in page_etrees]
 
     # make a temporary directory to put all intermediate files in
     with tempfile.TemporaryDirectory() as tmpdir:

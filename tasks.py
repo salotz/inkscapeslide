@@ -1,7 +1,7 @@
 from invoke import task
 import sys
 
-DEV_ENV = 'inkscapeslide-dev'
+DEV_ENV = 'inkscape_pages-dev'
 PYTHON_VERSION = '3.7'
 
 

@@ -13,7 +13,6 @@ setup(
     license='GPLv3',
     install_requires=[
         "pyPdf2",
-        "lxml",
         'click',
     ],
     packages=find_packages(where='src'),

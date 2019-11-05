@@ -1,5 +1,7 @@
 from copy import deepcopy
 
+import xml.etree.ElementTree as xml_parser
+
 INK_GROUPMODE = '{http://www.inkscape.org/namespaces/inkscape}groupmode'
 INK_LABEL = '{http://www.inkscape.org/namespaces/inkscape}label'
 
@@ -10,7 +12,7 @@ LAYER_KEY = 'layer'
 
 def parse_inkscape_svg(svg_str):
 
-    return lxml.etree.fromstring(svg_str)
+    return xml_parser.fromstring(svg_str)
 
 def get_layers(svg_etree):
     """Return a list of tuples (layer_id, layer_name, etree.Element) in
@@ -22,14 +24,30 @@ def get_layers(svg_etree):
     # they are in reverse order of the layer ordering in inkscape, so
     # we reverse them
     layers = list(reversed([(layer.attrib['id'], layer.attrib[INK_LABEL], layer)
-                            for layer in svg_etree.iterdescendants(tag=W3C_SVG_TAG)
+                            for layer in svg_etree.iter(tag=W3C_SVG_TAG)
                             if layer.attrib.get(INK_GROUPMODE, False) == LAYER_KEY]))
 
     return layers
 
+def get_layers(svg_etree):
+    """Return a list of tuples (layer_id, layer_name, etree.Element) in
+    order of the inkscape layer stacking."""
+
+    # get the layers by iterating over the elements with the W3C SVG
+    # tag and that have the grouping attribute for the layer.
+
+    # they are in reverse order of the layer ordering in inkscape, so
+    # we reverse them
+    layers = list(reversed([(layer.attrib['id'], layer.attrib[INK_LABEL], layer)
+                            for layer in svg_etree.iter(tag=W3C_SVG_TAG)
+                            if layer.attrib.get(INK_GROUPMODE, False) == LAYER_KEY]))
+
+    return layers
+
+
 def get_layer(svg_etree, layer_id):
 
-    for layer in svg_etree.iterdescendants(tag=W3C_SVG_TAG):
+    for layer in svg_etree.iter(tag=W3C_SVG_TAG):
         if layer.attrib.get(INK_GROUPMODE, False) == LAYER_KEY:
             if layer.attrib['id'] == layer_id:
                 return layer

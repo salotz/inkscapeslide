@@ -1,3 +1,2 @@
-lxml
 PyPDF2
 click
