@@ -73,7 +73,7 @@ def cli(output, svg):
         for i, page_pdf_fname in enumerate(page_pdf_fnames):
 
             subprocess.run(['inkscape',
-                            '--export-pdf={}'.format(page_pdf_fname),
+                            '--export-filename={}'.format(page_pdf_fname),
                             page_svg_fnames[i]
             ])
 

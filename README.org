@@ -11,6 +11,10 @@ Just install from git:
   pip install git+https://github.com/salotz/inkscape_pages.git
 #+end_src
 
+Tested to work with Inkscape version 1.0. The CLI for inkscape has
+changed. Should be easy enough to adapt to older versions. Make an
+issue if you find it doesn't work for your version.
+
 It only does one thing which will take your svg and turn it into a
 multipage pdf:
 
