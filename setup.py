@@ -12,7 +12,7 @@ setup(
     url='https://github.com/salotz/inkscape_pages',
     license='GPLv3',
     install_requires=[
-        "pyPdf2",
+        "pyPdf2<3",
         'click',
     ],
     packages=find_packages(where='src'),
