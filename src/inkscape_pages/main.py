@@ -8,6 +8,8 @@ INK_LABEL = '{http://www.inkscape.org/namespaces/inkscape}label'
 W3C_SVG_TAG = '{http://www.w3.org/2000/svg}g'
 
 LAYER_KEY = 'layer'
+SYTLE_KEY = 'style'
+NO_DISPLAY_TOKEN = "display:none"
 
 
 def parse_inkscape_svg(svg_str):
@@ -23,26 +25,24 @@ def get_layers(svg_etree):
 
     # they are in reverse order of the layer ordering in inkscape, so
     # we reverse them
-    layers = list(reversed([(layer.attrib['id'], layer.attrib[INK_LABEL], layer)
-                            for layer in svg_etree.iter(tag=W3C_SVG_TAG)
-                            if layer.attrib.get(INK_GROUPMODE, False) == LAYER_KEY]))
+    layers = []
+    for layer in svg_etree.iter(tag=W3C_SVG_TAG):
+        if (
+                (layer.attrib.get(INK_GROUPMODE, False) == LAYER_KEY) and
+                ('style' in layer.attrib.keys()) and
+                (NO_DISPLAY_TOKEN not in layer.attrib['style'])
+        ):
 
-    return layers
+                layer_id = layer.attrib['id']
+                layer_label = layer.attrib[INK_LABEL]
+                layer_element = layer
+                layers.append((
+                    layer_id,
+                    layer_label,
+                    layer_element,
+                ))
 
-def get_layers(svg_etree):
-    """Return a list of tuples (layer_id, layer_name, etree.Element) in
-    order of the inkscape layer stacking."""
-
-    # get the layers by iterating over the elements with the W3C SVG
-    # tag and that have the grouping attribute for the layer.
-
-    # they are in reverse order of the layer ordering in inkscape, so
-    # we reverse them
-    layers = list(reversed([(layer.attrib['id'], layer.attrib[INK_LABEL], layer)
-                            for layer in svg_etree.iter(tag=W3C_SVG_TAG)
-                            if layer.attrib.get(INK_GROUPMODE, False) == LAYER_KEY]))
-
-    return layers
+    return list(reversed(layers))
 
 
 def get_layer(svg_etree, layer_id):
@@ -77,6 +77,7 @@ def isolate_layer(svg_etree, layer_id):
 def separate_layers(svg_etree):
     """Given an SVG etree doc, make a list of docs each with only a single
     layer in order of the layer stack in inkscape."""
+
 
     layer_ids = [layer_id for layer_id, layer_label, layer_element
               in get_layers(svg_etree)]
